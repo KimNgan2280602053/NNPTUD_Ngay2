@@ -3,69 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Sản Phẩm Thông Minh</title>
+    <title>Bài Tập Quản Lý Sản Phẩm</title>
     <style>
-        :root { --primary: #2563eb; --bg: #f1f5f9; --text: #0f172a; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h1, h2 { color: var(--primary); text-align: center; }
-        
-        /* Bảng dữ liệu */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
-        th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
-        th { background: #f8fafc; }
-        input { width: 90%; padding: 5px; border: 1px solid #cbd5e1; border-radius: 4px; }
-
-        /* Nút bấm */
-        .grid-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin: 20px 0; }
-        button { padding: 10px; cursor: pointer; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; }
-        button:hover { opacity: 0.9; }
-
-        /* Vùng kết quả */
-        .result-area { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; min-height: 150px; white-space: pre-wrap; font-family: monospace; }
-        .status-tag { padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .on { background: #dcfce7; color: #166534; }
-        .off { background: #fee2e2; color: #991b1b; }
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .note { background: #f4f4f4; padding: 15px; border-left: 5px solid #2196F3; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Hệ Thống Quản Lý Sản Phẩm</h1>
-    
-    <p style="text-align: center; color: #64748b;">Có thể sửa trực tiếp dữ liệu trong bảng dưới đây:</p>
-    
-    <table id="productTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên SP</th>
-                <th>Giá (VNĐ)</th>
-                <th>Số lượng</th>
-                <th>Danh mục</th>
-                <th>Đang bán?</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            </tbody>
-    </table>
-
-    <div class="grid-buttons">
-        <button onclick="showResult(1)">Câu 1 & 2</button>
-        <button onclick="showResult(3)">Câu 3</button>
-        <button onclick="showResult(4)">Câu 4</button>
-        <button onclick="showResult(5)">Câu 5</button>
-        <button onclick="showResult(6)">Câu 6</button>
-        <button onclick="showResult(7)">Câu 7</button>
-        <button onclick="showResult(8)">Câu 8</button>
-        <button onclick="showResult(9)">Câu 9</button>
-        <button onclick="showResult(10)">Câu 10</button>
+    <h1>Bài tập JavaScript - Product Management</h1>
+    <div class="note">
+        <p><strong>Hướng dẫn:</strong> Nhấn phím <b>F12</b> và chọn thẻ <b>Console</b> để xem kết quả chạy các câu từ 1 đến 10.</p>
     </div>
 
-    <h2>Kết Quả Thực Thi</h2>
-    <div id="result-box" class="result-area">// Kết quả sẽ thay đổi dựa trên bảng dữ liệu phía trên...</div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

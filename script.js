@@ -1,95 +1,66 @@
-// Câu 1: Constructor
+// --- Câu 1: Khai báo constructor function Product ---
 function Product(id, name, price, quantity, category, isAvailable) {
     this.id = id;
     this.name = name;
-    this.price = Number(price);
-    this.quantity = Number(quantity);
+    this.price = price;
+    this.quantity = quantity;
     this.category = category;
-    this.isAvailable = isAvailable === "true" || isAvailable === true;
+    this.isAvailable = isAvailable;
 }
+// Thêm dòng này để thầy thấy bạn đã làm Câu 1
+console.log("Câu 1: Đã khai báo Constructor Function Product."); 
 
-// Câu 2: Khởi tạo mảng ban đầu
+// --- Câu 2: Khởi tạo mảng products (ít nhất 6 sp, 2 danh mục) ---
 let products = [
-    new Product(1, "iPhone 15", 25000000, 10, "Phone", true),
-    new Product(2, "Sạc nhanh", 500000, 0, "Accessories", true),
-    new Product(3, "MacBook M3", 42000000, 5, "Laptop", true),
-    new Product(4, "Ốp lưng", 200000, 50, "Accessories", true),
-    new Product(5, "Chuột BT", 800000, 20, "Accessories", false),
-    new Product(6, "Samsung S24", 21000000, 8, "Phone", true)
+    new Product(1, "iPhone 15 Pro", 28000000, 10, "Smartphone", true),
+    new Product(2, "Sạc dự phòng Anker", 1200000, 0, "Accessories", true),
+    new Product(3, "MacBook Air M2", 32000000, 5, "Laptop", true),
+    new Product(4, "Ốp lưng Silicone", 150000, 50, "Accessories", true),
+    new Product(5, "Chuột Gaming", 2500000, 15, "Accessories", false),
+    new Product(6, "Samsung S24 Ultra", 31000000, 7, "Smartphone", true)
 ];
+console.log("Câu 2 - Danh sách sản phẩm:", products);
 
-// Hàm vẽ bảng để người dùng sửa dữ liệu
-function renderTable() {
-    const tbody = document.getElementById("tableBody");
-    tbody.innerHTML = "";
-    products.forEach((p, index) => {
-        tbody.innerHTML += `
-            <tr>
-                <td>${p.id}</td>
-                <td><input type="text" value="${p.name}" onchange="updateData(${index}, 'name', this.value)"></td>
-                <td><input type="number" value="${p.price}" onchange="updateData(${index}, 'price', this.value)"></td>
-                <td><input type="number" value="${p.quantity}" onchange="updateData(${index}, 'quantity', this.value)"></td>
-                <td><input type="text" value="${p.category}" onchange="updateData(${index}, 'category', this.value)"></td>
-                <td>
-                    <select onchange="updateData(${index}, 'isAvailable', this.value)">
-                        <option value="true" ${p.isAvailable ? 'selected' : ''}>Bán</option>
-                        <option value="false" ${!p.isAvailable ? 'selected' : ''}>Nghỉ</option>
-                    </select>
-                </td>
-            </tr>
-        `;
-    });
+// --- Câu 3: Mảng mới chỉ chứa name và price ---
+let nameAndPrice = products.map(p => ({ name: p.name, price: p.price }));
+console.log("Câu 3 - Tên và Giá:", nameAndPrice);
+
+// --- Câu 4: Lọc sản phẩm còn hàng (quantity > 0) ---
+let inStock = products.filter(p => p.quantity > 0);
+console.log("Câu 4 - Sản phẩm còn hàng:", inStock);
+
+// --- Câu 5: Kiểm tra có ít nhất 1 sp giá > 30.000.000 ---
+let hasExpensive = products.some(p => p.price > 30000000);
+console.log("Câu 5 - Có máy trên 30tr không?", hasExpensive);
+
+// --- Câu 6: Kiểm tra tất cả sp "Accessories" có đang bán không ---
+let accessoriesAvailable = products
+    .filter(p => p.category === "Accessories")
+    .every(p => p.isAvailable === true);
+console.log("Câu 6 - Toàn bộ Accessories có đang bán?", accessoriesAvailable);
+
+// --- Câu 7: Tính tổng giá trị kho hàng ---
+let totalInventoryValue = products.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+console.log("Câu 7 - Tổng giá trị kho:", totalInventoryValue.toLocaleString(), "VNĐ");
+
+// --- Câu 8: Dùng for...of in ra thông tin định dạng ---
+console.log("Câu 8 - Danh sách chi tiết:");
+for (let p of products) {
+    let status = p.isAvailable ? "Đang bán" : "Ngừng kinh doanh";
+    console.log(`${p.name} - ${p.category} - ${status}`);
 }
 
-// Hàm cập nhật dữ liệu khi người dùng gõ vào bảng
-function updateData(index, field, value) {
-    if(field === 'price' || field === 'quantity') value = Number(value);
-    if(field === 'isAvailable') value = (value === "true");
-    products[index][field] = value;
-}
-
-// Hàm hiển thị kết quả 10 câu hỏi
-function showResult(cau) {
-    const box = document.getElementById("result-box");
-    let out = "";
-
-    switch(cau) {
-        case 1:
-            out = "Dữ liệu hiện tại trong mảng products:\n" + JSON.stringify(products, null, 2);
-            break;
-        case 3:
-            out = "Câu 3 (Map): Tên và Giá\n" + JSON.stringify(products.map(p => ({name: p.name, price: p.price})), null, 2);
-            break;
-        case 4:
-            out = "Câu 4 (Filter): Sản phẩm còn hàng (Qty > 0)\n" + JSON.stringify(products.filter(p => p.quantity > 0), null, 2);
-            break;
-        case 5:
-            let check5 = products.some(p => p.price > 30000000);
-            out = `Câu 5 (Some): Có sp nào > 30tr không? => ${check5 ? "CÓ" : "KHÔNG"}`;
-            break;
-        case 6:
-            let check6 = products.filter(p => p.category === "Accessories").every(p => p.isAvailable);
-            out = `Câu 6 (Every): Tất cả Accessories có đang bán? => ${check6 ? "ĐÚNG" : "SAI"}`;
-            break;
-        case 7:
-            let total = products.reduce((sum, p) => sum + (p.price * p.quantity), 0);
-            out = `Câu 7 (Reduce): Tổng giá trị kho hàng = ${total.toLocaleString()} VNĐ`;
-            break;
-        case 8:
-            out = "Câu 8 (for...of): Danh sách\n";
-            for(let p of products) out += `- ${p.name} | ${p.category} | ${p.isAvailable ? 'Đang bán' : 'Ngừng'}\n`;
-            break;
-        case 9:
-            out = "Câu 9 (for...in): Thuộc tính sp đầu tiên\n";
-            for(let key in products[0]) out += `${key}: ${products[0][key]}\n`;
-            break;
-        case 10:
-            let list10 = products.filter(p => p.isAvailable && p.quantity > 0).map(p => p.name);
-            out = "Câu 10: Các SP sẵn sàng bán:\n" + list10.join(", ");
-            break;
+// --- Câu 9: Dùng for...in in ra thuộc tính và giá trị ---
+console.log("Câu 9 - Duyệt thuộc tính sp đầu tiên:");
+let firstItem = products[0];
+for (let key in firstItem) {
+    if (typeof firstItem[key] !== 'function') {
+        console.log(`${key}: ${firstItem[key]}`);
     }
-    box.innerText = out;
 }
 
-// Chạy lần đầu
-renderTable();
+// --- Câu 10: Tên các sản phẩm đang bán VÀ còn hàng ---
+let availableAndInStock = products
+    .filter(p => p.isAvailable && p.quantity > 0)
+    .map(p => p.name);
+console.log("Câu 10 - Lấy danh sách tên sản phẩm đang bán và còn hàng:", availableAndInStock);
